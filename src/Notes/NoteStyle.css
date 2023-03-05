@@ -1,0 +1,62 @@
+html,body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+    /* overflow-y: hidden; */
+    text-align: center;
+}
+
+#Header {
+    width: 700px;
+    height: 80px;
+    border: solid;
+    margin: auto;
+}
+
+#Header h1, img {
+    display: inline;
+}
+
+#Header h1 {
+    font-size: 50px;
+    position: relative;
+    right: 230px;
+}
+
+#Header img {
+    cursor: pointer;
+    width: 35px;
+    position: relative;
+    top: 6px;
+    right: 150px;
+}
+
+#Content {
+    width: 700px;
+    height: 1000px;
+    border: solid;
+    margin: auto;
+}
+
+#Content img {
+    cursor: pointer;
+    width: 60px;
+    position: fixed;
+    top: 500px;
+    right: 500px;
+}
+
+#Add_View_Edit #Title {
+    float: left;
+    border-color: red;
+}
+
+#Add_View_Edit{
+
+}
+
+#Add_View_Edit {
+
+}
