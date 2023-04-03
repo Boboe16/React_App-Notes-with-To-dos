@@ -1,4 +1,5 @@
-import React, {createContext, useState} from 'react'
+import React, {useState} from 'react'
+import {Link} from 'react-router-dom';
 import setting_icon from './1008927-200.png'
 import add_icon from './Green-Add-Button-PNG.png'
 import delete_icon from './x-square-close-delete-icon-512x512-jzeyu3ut.png'
@@ -13,22 +14,71 @@ function Header() {
   )
 }
 
-let context = createContext(true)
-
 function Content() {
-  let [showAddViewEdit, setShowAddViewEdit] = useState(false)
-  
-  let [nothing] = useState(true)
+  let [showAdd, setShowAdd] = useState(false)
 
-  let [Re_render,setRe_renderContent] = useState(true)
+  let [showView, setShowView] = useState(false)
 
-  async function delete_note(title) {
-    localStorage.removeItem(`${title}`)
-    localStorage.removeItem(`${title}-content`)
-    await setRe_renderContent(false)
-    await setRe_renderContent(true)
-    // await setVisible(false)
-  } 
+  let [re_render ,setRe_RenderContent] = useState(0)
+ 
+  async function deleteNote(title) {
+      localStorage.removeItem(`${title}`)
+      localStorage.removeItem(`${title}-content`)
+      setRe_RenderContent(re_render + 1)
+  }
+
+  let [originalNote, setOriginalNote] = useState()
+
+  async function save(originalNote) { 
+    /* The save function saves a note to local storage. 
+    It first gets the values of the title and content inputs from the form. If the title input is empty, the function doesn't save anything. 
+    If the client is editing an existing note, 
+    the function removes the old note from local storage by removing the key-value pairs for the old note's title and content. 
+    Then, it sets the new note's title and content as new key-value pairs in local storage. 
+    This function allows the client to save a new note or update an existing note in local storage. */
+    let Title = document.querySelector('#Title').value
+    let Content = document.querySelector('#Note-Content').value
+
+    if (Title === '') {
+      return
+    }
+    
+    localStorage.removeItem(`${originalNote}`)
+    let array = []
+    for (let i = 0; i < localStorage.length; i++) {
+      let pupo = localStorage.key(i)
+      array.push(`${pupo}`)
+    }
+    let ihe = array.filter(element => element.includes(`${originalNote}-content`))
+    localStorage.removeItem(`${ihe}`)
+    console.log(originalNote)
+
+    await localStorage.setItem(`${Title}`, `${Title}`)
+    await localStorage.setItem(`${Title}-content`, `${Content}`)
+  }
+
+  let [title, setTitle] = useState();
+
+  let [content, setContent] = useState()
+
+  async function view(noteTitle) {
+    /*The view function get the title of the selected note and set the state of Title, Content, and originalContent using it.
+    It then set the state showView to false then true, after its true the showView ternary operator is executed and addViewEdit component is rendered
+    with props Title, Content, and the save function with originalNote as argument.*/
+    setOriginalNote(noteTitle)
+    setTitle(noteTitle)
+    let array = []
+    for (let i = 0; i < localStorage.length; i++) {
+      let pupo = localStorage.key(i)
+      array.push(`${pupo}`)
+    }
+    let ihe = array.filter(element => element.includes(`${noteTitle}-content`))
+    let bebe = localStorage.getItem(ihe)
+    setContent(bebe)
+    await setShowView(false)
+    await setShowView(true)
+    (showAdd ? setShowAdd(false) : null)
+  }
 
   let keys = []
 
@@ -37,60 +87,50 @@ function Content() {
     keys.push(localStorage_keys)
   }
 
-  let filtered_keys = keys.filter(key => !key.includes('-content'))
-
-  //
-
-  async function save() {
-    let Title = document.querySelector('#Title').value
-    let Content = document.querySelector('#Note-Content').value
-    await localStorage.setItem(`${Title}`, `${Title}`)
-    await localStorage.setItem(`${Title}-content`, `${Content}`)
-    await setRe_renderContent(false) 
-    await setRe_renderContent(true)
-    // await setVisible(false)
-  }
+  let filtered_keys = keys.filter(key => key.indexOf('-todo') === -1 && key.indexOf('-content') === -1);
+  // filtered_keys = keys.filter(key => !key.includes('-todo'))
 
   return (
     <div id='Content'>
       <ul>
-       {filtered_keys.map(key => {
+       {filtered_keys.map(noteTitle => {
         return (
           <div>
-            <li key={key}>{key}</li>
-            <img id='Delete' src={delete_icon} onClick={() => delete_note(key)} alt='delete-icon'/>
+            <li onClick={() => view(noteTitle)} key={noteTitle}>{noteTitle}</li>
+            <img id='Delete' src={delete_icon} onClick={() => deleteNote(noteTitle)} alt='delete-icon'/>
           </div>
         )})}
       </ul>
 
       <img id='Add' src={add_icon} alt='add_icon' onClick={async () => {
-        await setShowAddViewEdit(false)
-        await setShowAddViewEdit(true)
+        await setShowAdd(false)
+        await setShowAdd(true)
+        (showView ? setShowView(false) : null)
       }} />
-      {showAddViewEdit && <AddViewEdit Visibility={true} hallo={nothing} save={save}/>}
+      {showAdd && <AddViewEdit save={save} />}
+      {showView && <AddViewEdit save={() => save(originalNote)} pee={title} poo={content} />}
+      
+      <ul id='Navbar'>
+        <li><Link to={"/"}>Notes</Link></li>
+        <li><Link to={"/Todos"}>To-dos</Link></li>
+      </ul>
     </div>
   )
 }
 
 function AddViewEdit(props)  {
-  
-  // let [visible, setVisible] = useState(props.Visibility)
-  
-  // let [tae , setRe_renderContent] = useState(props.hallo)
-  
   return (
      <div id='Add_View_Edit'>
         <form onSubmit={props.save}>
-          <input type="text" id="Title" placeholder="Title"/>
-          <textarea id="Note-Content" cols="25" rows="2" placeholder="Note something down"></textarea>
-          <input type="submit" id="Save" placeholder="Save" value='Save'/>
+        <input type="text" id="Title" placeholder="Title" defaultValue={props.pee}/>
+        <textarea id="Note-Content" cols="25" rows="2" placeholder="Note something down" defaultValue={props.poo}></textarea>
+        <input type="submit" id="Save" placeholder="Save" value='Save'/>
         </form>
       </div>
   )
 }
 
 function UI() {
-
   return (
     <>
       <Header />

@@ -35,12 +35,29 @@ html,body {
 
 #Content {
     width: 700px;
-    height: 1000px;
+    height: auto;
     border: solid;
     margin: auto;
 }
 
-#Content img {
+li {
+    float: left;
+    display: inline;
+    text-decoration: none;
+    color: none;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 1px;
+    cursor: pointer;
+}
+
+#Delete {
+    width: 20px;
+    cursor: pointer;
+    
+}
+
+#Add {
     cursor: pointer;
     width: 60px;
     position: fixed;
@@ -48,15 +65,12 @@ html,body {
     right: 500px;
 }
 
+#Navbar li {
+    display: inline;
+}
+
 #Add_View_Edit #Title {
     float: left;
     border-color: red;
 }
 
-#Add_View_Edit{
-
-}
-
-#Add_View_Edit {
-
-}
