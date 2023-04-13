@@ -9,7 +9,8 @@ html,body {
 }
 
 #Header {
-    width: 700px;
+    /* width: 700px; */
+    width: 20vh;
     height: 80px;
     border: solid;
     margin: auto;
@@ -34,27 +35,41 @@ html,body {
 }
 
 #Content {
+    height: 86vh;
     width: 700px;
-    height: auto;
     border: solid;
     margin: auto;
+    background-color: gray;
 }
 
-li {
-    float: left;
+/* .Notes {
+    position: relative;
+    right: 2%;
+    width: 200px;
+    border: 2px dotted pink;
+} */
+
+.Note-Title {
+    /* float: left;
     display: inline;
-    text-decoration: none;
     color: none;
     border-style: solid;
     border-width: 1px;
-    border-radius: 1px;
-    cursor: pointer;
+    border-radius: 1px;*/
+    cursor: pointer; 
+    list-style: none;
+    position: relative;
+    right: 2%;
+    width: 200px;
+    border: 2px dotted red;
 }
 
-#Delete {
+.Note-Delete {
     width: 20px;
     cursor: pointer;
-    
+    position: relative;
+    bottom: 20px;
+    left: 10;
 }
 
 #Add {
@@ -67,6 +82,12 @@ li {
 
 #Navbar li {
     display: inline;
+}
+
+#Add_View_Edit {
+    size: auto;
+    padding: auto;
+    border: 2px dotted palevioletred;
 }
 
 #Add_View_Edit #Title {
