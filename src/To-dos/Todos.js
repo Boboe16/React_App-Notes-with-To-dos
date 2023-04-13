@@ -66,18 +66,32 @@ function Content() {
   let fixedFilteredKeys2 = fixedFilteredKeys.map(key => key.replace(' false', ''))
   let fixedFilteredKeys3 = fixedFilteredKeys2.map(key => key.replace(' true', ''))
 
-  useEffect(() => fixedFilteredKeys3.forEach(key => saveCheckedorUnchecked2(key)), []) // This hook is used to trigger saveCheckedorUnchecked2() for every existing Todo in local storage when the component is first mounted.
+  useEffect(() => fixedFilteredKeys3.forEach(key => saveCheckedorUnchecked2(key))) // This hook is used to trigger saveCheckedorUnchecked2() for every existing Todo in local storage when the component is first mounted.
+
+  useEffect(() => {
+    console.log('tae')
+    let todoTitle = document.getElementsByClassName('Todo-Title');
+    Array.from(todoTitle).forEach(title => {
+      let string = title.innerText;
+      if (title.innerText.length > 16) title.innerText = `${string.substring(0, 16) + "..."}`; console.log('it worked')
+    });
+  }, []);
 
   return (
     <div id='Content'>
     <ul>
     {fixedFilteredKeys3.map(key => {
     return (
-      <div key={key}>
-        <input id={key} type='checkbox' onClick={() => saveCheckedOrUnchecked(key)}/>
-        <li key={key}>{key}</li>
-        <img id='Delete' src={delete_icon} alt='delete' onClick={() => deleteTodo(key)}/>
-      </div>
+      <>
+        <div key={key} id='Todos'>
+          <li className='Todo-Title' key={key}>{key}</li>
+          
+        </div>
+        <div className='tae'>
+          <input id={key} type='checkbox' onClick={() => saveCheckedOrUnchecked(key)}/>
+          <img className='Todo-Delete' src={delete_icon} onClick={() => deleteTodo(key)} alt='Delete to-do'/>
+        </div>
+      </>
     )
     })}
     </ul>
@@ -99,13 +113,11 @@ function Content() {
 
 function AddTodos(props) {
   return (
-    <div id='AddNote'>
-      <form onSubmit={props.submit}>
-        <img src={delete_icon} alt='exit' />
-        <input type="text" id="To-do" placeholder="To-do"/>
-        <input type='submit' id="Save" value="Save"/>
-      </form>
-    </div>
+    <form id='Add-Todo' onSubmit={props.submit}>
+      <img id='Exit-Add-Todo' src={delete_icon} alt='exit' />
+      <input type="text" id="To-do" placeholder="To-do"/>
+      <input type='submit' id="Save" value="Save"/>
+    </form>
   )
 }
 

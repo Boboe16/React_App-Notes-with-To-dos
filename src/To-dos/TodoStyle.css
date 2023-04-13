@@ -33,27 +33,31 @@ html,body {
     right: 150px;
 }
 
-#Content {
-    width: 700px;
-    height: auto;
-    border: solid;
-    margin: auto;
-}
-
-li {
+.Todo-Title {
+    width: 200px;
+    cursor: pointer;
     float: left;
-    display: inline;
-    text-decoration: none;
+    display: inline; 
     border-style: solid;
     border-width: 1px;
     border-radius: 1px;
     cursor: pointer;
-}
+} 
 
-#Delete {
+.Todo-Delete {
     width: 20px;
     cursor: pointer;
-    
+    /* position: relative;
+    bottom: 22px;
+    left: 10%; */
+} 
+
+.tae {
+    width: 100px;
+    cursor: pointer;
+    position: relative;
+    bottom: 19px;
+    left: 30%;
 }
 
 #Add {
@@ -64,12 +68,23 @@ li {
     right: 500px;
 }
 
-#Navbar li {
-    display: inline;
+#Add-Todo {
+    size: auto;
+    padding: auto;
+    border: 2px dotted pink;
 }
+
+#Exit-Add-Todo {
+    width: 20px;
+    cursor: pointer;
+} 
+
+/* #Navbar li {
+    display: inline;
+} */
 
 #Add_View_Edit #Title {
     float: left;
     border-color: red;
 }
-
+ 
