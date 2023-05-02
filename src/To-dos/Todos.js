@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import setting_icon from './1008927-200.png'
 import add_icon from './Green-Add-Button-PNG.png'
 import delete_icon from './x-square-close-delete-icon-512x512-jzeyu3ut.png'
 import './TodoStyle.css'
@@ -9,7 +8,6 @@ function Header() {
     return (
       <div id='Header'>
         <h1>Notepud</h1>
-        <img src={setting_icon} alt='setting_icon'/>
       </div>
     )
   }
@@ -20,7 +18,8 @@ function Content() {
   let [showAddTodos, setShowAddTodos] = useState() 
 
   function save() { // This function retrieves the value of the input field for the new Todo, saves the Todo to local storage, and triggers a re-render of the component.
-    let Todo = document.getElementById('To-do').value
+    let Todo = document.getElementById('Add-To-do-Input').value
+    // if (Todo === '') return console.log('No input')
     localStorage.setItem(`${Todo}-todo false`, `${Todo}`)
     setRe_RenderContent(re_render + 1)
   }
@@ -77,6 +76,10 @@ function Content() {
     });
   }, []);
 
+  try {
+    showAddTodos ? document.getElementById('Add').style.visibility = 'hidden' : document.getElementById('Add').style.visibility = 'visible'
+  } catch(error) { console.log(error) } 
+
   return (
     <div id='Content'>
     <ul>
@@ -101,7 +104,7 @@ function Content() {
       await setShowAddTodos(true)
     }}/>
 
-    <ul>
+    <ul id='Navbar'>
       <li><Link to={'/'}>Notes</Link></li>
       <li><Link to={'/Todos'}>Todos</Link></li>
     </ul>
@@ -113,10 +116,9 @@ function Content() {
 
 function AddTodos(props) {
   return (
-    <form id='Add-Todo' onSubmit={props.submit}>
-      <img id='Exit-Add-Todo' src={delete_icon} alt='exit' />
-      <input type="text" id="To-do" placeholder="To-do"/>
-      <input type='submit' id="Save" value="Save"/>
+    <form id='Add-To-do' onSubmit={props.submit}>
+      <input type="text" id="Add-To-do-Input" placeholder="To-do"/>
+      <input type='submit' id="Save-To-do" value="Save"/>
     </form>
   )
 }

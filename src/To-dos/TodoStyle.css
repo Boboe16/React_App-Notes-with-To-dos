@@ -1,20 +1,3 @@
-html,body {
-    width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden;
-    /* overflow-y: hidden; */
-    text-align: center;
-}
-
-#Header {
-    width: 700px;
-    height: 80px;
-    border: solid;
-    margin: auto;
-}
-
 #Header h1, img {
     display: inline;
 }
@@ -34,6 +17,10 @@ html,body {
 }
 
 .Todo-Title {
+    text-align: center;
+    position: relative;
+    left: -30px;
+    top: 20px;
     width: 200px;
     cursor: pointer;
     float: left;
@@ -47,41 +34,42 @@ html,body {
 .Todo-Delete {
     width: 20px;
     cursor: pointer;
-    /* position: relative;
-    bottom: 22px;
-    left: 10%; */
 } 
 
 .tae {
-    width: 100px;
+    width: 40px;
     cursor: pointer;
     position: relative;
-    bottom: 19px;
-    left: 30%;
+    bottom: -1px;
+    left: 85%;
 }
 
-#Add {
-    cursor: pointer;
-    width: 60px;
+#Add-To-do {
+    background-color: aqua;
     position: fixed;
-    top: 500px;
-    right: 500px;
-}
-
-#Add-Todo {
-    size: auto;
+    top: 50%;
+    bottom: 50%;
+    width: 100%;
+    height: fit-content;
     padding: auto;
     border: 2px dotted pink;
 }
 
-#Exit-Add-Todo {
-    width: 20px;
-    cursor: pointer;
-} 
+#Add-To-do-Input {
+    width: 80%;
+}
 
-/* #Navbar li {
-    display: inline;
-} */
+#Save-To-do {
+    position: relative;
+    left: 1%;
+}
+
+@media (min-width: 350px) {
+    #Save-To-do {
+        position: relative;
+        left: 2%;
+    }
+}
 
 #Add_View_Edit #Title {
     float: left;
