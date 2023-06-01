@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react'
+import React, {useEffect, useState} from 'react'
 import AddViewEdit from './AddViewEdit'
 import add_icon from './Green-Add-Button-PNG.png'
 import delete_icon from './x-square-close-delete-icon-512x512-jzeyu3ut.png'
@@ -9,7 +9,7 @@ function Content() {
   let [showView, setShowView] = useState(false) 
   let [re_render ,setRe_RenderContent] = useState(0)
  
-  function deleteNote(title) {
+  function deleteNote(title) { // **deleteNote(title)**: This function is called when the delete icon is clicked for a note. It removes the note and its corresponding content from the local storage. It uses the `localStorage.removeItem` method to remove the note and content based on the provided `title`. After removing the items, it updates the state variable `re_render` by incrementing its value by 1 using the `setRe_RenderContent` function.
       localStorage.removeItem(`${title}`)
       localStorage.removeItem(`${title}-content`)
       setRe_RenderContent(re_render + 1)
@@ -17,12 +17,13 @@ function Content() {
 
   let [originalNote, setOriginalNote] = useState()
 
-  let save = useCallback(async (originalNote) => { 
-    /* The save function saves a note to local storage. It first gets the values of the title and content inputs from the form. If the title input is empty, the function doesn't save anything. If the client is editing an existing note, the function removes the old note from local storage by removing the key-value pairs for the old note's title and content. Then, it sets the new note's title and content as new key-value pairs in local storage. This function allows the client to save a new note or update an existing note in local storage. */
+  async function save() {  // **save()**: This function is called when the save button is clicked in the `AddViewEdit` component. It retrieves the values of the note title and content from the input fields. If the `Title` is empty, it sets the state variables `showAdd` and `showNotes` to `false` and returns early. Otherwise, it removes the original note and its content from the local storage using `localStorage.removeItem`. It then sets the new note title and content in the local storage using `localStorage.setItem`. Finally, it sets the state variables `showAdd`, `showView`, and `showNotes` to control the visibility of different components.
     let Title = document.querySelector('#Note-Title-Input').value
     let Content = document.querySelector('#Note-Content-Input').value
   
     if (Title === '') {
+      await setShowAdd(false)
+      await setShowNotes(true)
       return
     }
     
@@ -38,16 +39,16 @@ function Content() {
   
     await localStorage.setItem(`${Title}`, `${Title}`)
     await localStorage.setItem(`${Title}-content`, `${Content}`)
+    await setShowAdd(false)
+    await setShowView(false)
     await setShowNotes(true)
-  }, [setShowNotes])
-  
+  }
 
   let [title, setTitle] = useState();
 
   let [content, setContent] = useState()
 
-  async function view(noteTitle) {
-    /*The view function get the title of the selected note and set the state of Title, Content, and originalContent using it. It then set the state showView to false then true, after its true the showView ternary operator is executed and addViewEdit component is rendered with props Title, Content, and the save function with originalNote as argument.*/
+  async function view(noteTitle) {  // **view(noteTitle)**: This function is called when a note title is clicked in the list of notes. It retrieves the corresponding note content from the local storage based on the `noteTitle`. It sets the state variables `originalNote`, `title`, and `content` to control the view mode in the `AddViewEdit` component. Additionally, it toggles the state variable `showView` using the `setShowView` function and sets `showAdd` to `false` if it was previously `true`.
     setOriginalNote(noteTitle)
     setTitle(noteTitle)
     let array = []
@@ -58,8 +59,7 @@ function Content() {
     let ihe = array.filter(element => element.includes(`${noteTitle}-content`))
     let bebe = localStorage.getItem(ihe)
     setContent(bebe)
-    await setShowView(false)
-    await setShowView(true)
+    await setShowView((prevShowView) => !prevShowView)
     (showAdd ? setShowAdd(false) : null)
   }
 
@@ -71,7 +71,7 @@ function Content() {
 
   let filteredKeys = keys.filter(key => key.indexOf('-todo') === -1 && key.indexOf('-content') === -1);
 
-  useEffect(() => {
+  useEffect(() => { // **useEffect(() => {...}, [])**: This `useEffect` hook is used to modify the note titles if their length exceeds 16 characters. It selects all elements with the class name `Note-Title` and checks their text length. If a title's length exceeds 16 characters, it updates the title by showing the first 16 characters followed by an ellipsis. The empty dependency array `[]` ensures that this effect only runs once when the component mounts.
     let noteTitle = document.getElementsByClassName('Note-Title');
     Array.from(noteTitle).forEach(title => {
       let string = title.innerText;
@@ -79,9 +79,9 @@ function Content() {
     });
   }, []);
 
-  function hideNotes() {
+  function hideNotes() { // **hideNotes()**: This function is called when the notes are hidden. It sets the state variable `showNotes` to `false`.
     setShowNotes(false)
-    console.log('tae')
+    console.log('setShowNotes is false')
   }
 
   return (
@@ -105,20 +105,12 @@ function Content() {
         </div>
 
         <div className='row'>
-  <div className='col d-flex align-items-center justify-content-center'>
-    <img id='Add' className='d-block mx-auto' src={add_icon} alt='add_icon' onClick={async () => {
-      await setShowAdd(false)
-      await setShowAdd(true)
-      (showView ? setShowView(false) : null)
-    }} />
-  </div>
-</div>
-
-        {/* <img id='Add' className='d-block mx-auto' src={add_icon} alt='add_icon' onClick={async () => {
-          await setShowAdd(false)
-          await setShowAdd(true)
-          (showView ? setShowView(false) : null)
-        }} /> */}
+          <div className='col d-flex align-items-center justify-content-center'>
+            <img id='Add' className='d-block mx-auto' src={add_icon} alt='add_icon' onClick={async () => {
+              setShowAdd((prevShowAdd) => !prevShowAdd);
+            }} />
+          </div>
+        </div>
       </div> }
     </>
   )
