@@ -1,9 +1,10 @@
-import React from "react";
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes} from 'react-router-dom';
 import Note from './Notes/Note';
-import Todos from './Todos/Todos.js';
+import Todos from './To-dos/Todos.js';
+import './App.css'
 
 function App() {
+
   return (
     <Routes>
       <Route exact path="/" element={<Note />} />

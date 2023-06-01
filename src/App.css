@@ -1,38 +1,121 @@
-.App {
-  text-align: center;
+html,body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#Header {
+  border-bottom: solid;
+  background-color: gray;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#Header h1 {
+  font-size: 40px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center; 
 }
 
-.App-link {
-  color: #61dafb;
+#Header img {
+  cursor: pointer;
+  width: 110px;
+  height: 10vh;
+  float: right;
+  margin: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#Content {
+  border-top: none;
+  height: 90vh;
+  overflow: auto;
+  background-color: gray;
+}
+
+#Notes-Container {
+  height: 50%;
+  position: relative;
+  top: 10px;
+} 
+
+#Notes  {
+  padding-bottom: 0;
+}
+
+.Note-Title  {
+  text-align: center;
+  cursor: pointer; 
+  list-style: none;
+  border: 2px dotted red;
+}
+
+.Clickers {
+  float: right;
+}
+
+.Note-Delete {
+  width: 20px;
+  cursor: pointer;
+  float: right;
+}
+
+#Add {
+  cursor: pointer;
+  width: 50px;
+  position: fixed; 
+  bottom: 100px;
+}
+
+#Note-Title-Input {
+  height: 10vh;
+}
+
+#Note-Content-Input {
+  height: 80vh;
+}
+
+
+
+
+/* To-do */
+
+#Todos-Container {
+  position: relative;
+  top: 10px;
+}
+
+.Todo-Title {
+  text-align: center;
+  cursor: pointer;
+  list-style: none; 
+  cursor: pointer;
+  border: 2px dotted red;
+} 
+
+.Clickies {
+  float: right;
+}
+
+.Todo-Check {
+  width: 40px;
+  cursor: pointer;
+}
+
+.Todo-Delete {
+  width: 20px;
+  cursor: pointer;
+} 
+
+#Add-Todo {
+  border-color: red;
+  position: fixed;
+  top: 50%;
+  bottom: 50%;
+}
+
+#Add-Todo input, button {
+  text-align: center;
+  height: 10vh;
+  font-size: x-large;
 }
