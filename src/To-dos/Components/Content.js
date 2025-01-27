@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import AddTodos from './AddTodos'
-import add_icon from './Green-Add-Button-PNG.png'
+import add_icon from './plus.png'
 import delete_icon from './x-square-close-delete-icon-512x512-jzeyu3ut.png'
 
 function Content() {

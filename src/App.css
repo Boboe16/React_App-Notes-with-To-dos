@@ -9,7 +9,7 @@ html,body {
 
 #Header {
   border-bottom: solid;
-  background-color: gray;
+  background-color: #D7D9D7;
 }
 
 #Header h1 {
@@ -30,7 +30,7 @@ html,body {
   border-top: none;
   height: 90vh;
   overflow: auto;
-  background-color: gray;
+  background-color: #D7D9D7;
 }
 
 #Notes-Container {
@@ -47,7 +47,9 @@ html,body {
   text-align: center;
   cursor: pointer; 
   list-style: none;
-  border: 2px dotted red;
+  border: 2px black;
+  margin-bottom: 5px;
+  border-style: double;
 }
 
 .Clickers {
@@ -62,7 +64,7 @@ html,body {
 
 #Add {
   cursor: pointer;
-  width: 50px;
+  width: 70px;
   position: fixed; 
   bottom: 100px;
 }
@@ -90,7 +92,9 @@ html,body {
   cursor: pointer;
   list-style: none; 
   cursor: pointer;
-  border: 2px dotted red;
+  border: 2px black;
+  margin-bottom: 5px;
+  border-style: double;
 } 
 
 .Clickies {
